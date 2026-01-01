@@ -1,0 +1,24 @@
+# virtual env
+env/
+.venv/
+
+# env vars
+.env
+
+# python
+__pycache__/
+*.pyc
+
+# data files
+*.csv
+*.parquet
+*.db
+
+# logs
+*.log
+
+# notebooks
+.ipynb_checkpoints/
+
+
+!data/.gitkeep
