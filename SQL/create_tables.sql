@@ -1,19 +1,19 @@
-CREATE TABLE IF NOT EXISTS makes(
-    Make_ID BIGINT PRIMARY KEY,
-    Make_Name TEXT,
-    Load_Timestamp TIMESTAMP NOT NULL
-)
+CREATE TABLE IF NOT EXISTS makes (
+    make_id BIGINT PRIMARY KEY,
+    make_name TEXT,
+    load_timestamp TIMESTAMP NOT NULL
+);
 
-CREATE INDEX idx makes_make_id ON makes(Make_ID)
+CREATE INDEX IF NOT EXISTS idx_makes_make_id
+    ON makes (make_id);
 
-CREATE TABLE IF NOT EXISTS models(
-    Model_ID BIGINT PRIMARY KEY,
-    Model_Name TEXT,
-    Make_ID BIGINT,
-    Make_Name TEXT,
-    Load_Timestamp TIMESTAMP NOT NULL
-)
+CREATE TABLE IF NOT EXISTS models (
+    model_id BIGINT PRIMARY KEY,
+    model_name TEXT,
+    make_id BIGINT,
+    make_name TEXT,
+    load_timestamp TIMESTAMP NOT NULL
+);
 
-CREATE INDEX idx models_model_id ON models(Model_ID)
-
-CREATE INDEX idx models_model_id_make_id ON models(Model_ID, Make_ID)
+CREATE INDEX IF NOT EXISTS idx_models_model_id
+    ON models (model_id);
