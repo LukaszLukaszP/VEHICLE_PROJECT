@@ -10,12 +10,12 @@ logging.basicConfig(
     format="%(asctime)s | %(levelname)s | %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
     handlers=[
-        logging.FileHandler("logs/etl.log"),   # zapis do pliku
-        logging.StreamHandler()           # wyświetlanie w konsoli
+        logging.FileHandler("logs/etl.log"),
+        logging.StreamHandler()
     ]
 )
 
-BASE_DIR = Path(__file__).resolve().parent[1]
+BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data"
 DATA_DIR.mkdir(exist_ok=True)
 
@@ -47,7 +47,6 @@ def fetch_makes() -> list[dict]:
     logging.info(f"Pobrano {len(results)} rekordów.")
     return results
     
-
 def fetch_models_for_make(make_ids: list[int]) -> list[dict]:
     all_results = []
 
@@ -163,8 +162,7 @@ def main() -> None:
     make_ids_to_fetch = get_make_ids_to_fetch(df_makes, OUTPUT_MODELS_FILE, limit=MODELS_LIMIT)
     if not make_ids_to_fetch:
         logging.info("Brak nowych marek do pobrania modeli. Kończę.")
-        return
-    
+        return 
     raw_models = fetch_models_for_make(make_ids_to_fetch)
     df_models = normalize_models(raw_models)
     logging.info("\nPodgląd pierwszych 10 modeli:\n%s",df_models.head(10))  

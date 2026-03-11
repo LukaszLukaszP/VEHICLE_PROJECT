@@ -3,7 +3,7 @@ from pathlib import Path
 import logging
 from sqlalchemy import text
 from src.load.db import get_engine
-from src.load.loaders import load_dataframe_to_db
+from src.load.db_loader import load_dataframe_to_db
 from src.load.extract import extract_csv
 from src.load.transform import transform_df
 

@@ -1,8 +1,9 @@
-import logging
 import pandas as pd
 from sqlalchemy import text
 from src.load.db import get_engine
+from src.utils.logger import get_logger
 
+logger = get_logger(__name__)
 
 def load_dataframe_to_db(
     df: pd.DataFrame,
@@ -12,7 +13,7 @@ def load_dataframe_to_db(
 ) -> None:
 
     if df is None or df.empty:
-        logging.warning(f"[load] DataFrame is empty. Skipping load to '{table_name}'.")
+        logger.warning(f"[load] DataFrame is empty. Skipping load to '{table_name}'.")
         return
 
     staging_table = staging_table or f"stg_{table_name}"
@@ -50,14 +51,14 @@ def load_dataframe_to_db(
 
     try:
         with engine.begin() as conn:
-            logging.info(f"[load] Writing {len(df)} rows to staging table '{staging_table}' (replace).")
+            logger.info(f"[load] Writing {len(df)} rows to staging table '{staging_table}' (replace).")
             df.to_sql(staging_table, con=conn, if_exists="replace", index=False)
 
-            logging.info(f"[load] Upserting from '{staging_table}' into '{table_name}' on key={key_cols}.")
-            logging.info(upsert_sql)
+            logger.info(f"[load] Upserting from '{staging_table}' into '{table_name}' on key={key_cols}.")
+            logger.info(upsert_sql)
             conn.execute(text(upsert_sql))
 
-        logging.info(f"[load] Load finished for target table '{table_name}'.")
+        logger.info(f"[load] Load finished for target table '{table_name}'.")
     except Exception as e:
-        logging.exception(f"[load] Error while loading into '{table_name}': {e}")
+        logger.exception(f"[load] Error while loading into '{table_name}': {e}")
         raise
