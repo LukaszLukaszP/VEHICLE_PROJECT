@@ -18,7 +18,7 @@ class NHTSAClient:
         data = response.json()
         return data.get("Results", [])
         
-    def fetch_models_for_make(self, make_ids: list[int]) -> list[dict]:
+    def fetch_models_for_make(self, make_id: list[int]) -> list[dict]:
         logger.info(f"Fetching models for make_id={make_id}")
 
         url = MODELS_URL.format(make_id)

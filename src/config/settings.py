@@ -21,4 +21,4 @@ MODELS_URL = "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeId/{}?form
 MAKES_FILE = RAW_DIR / "makes.csv"
 MODELS_FILE = RAW_DIR / "models.csv"
 
-MODELS_LIMIT = int(os.getenv("MODELS_LIMIT", 100))
+MODELS_LIMIT = int(os.getenv("MODELS_LIMIT", 150))
